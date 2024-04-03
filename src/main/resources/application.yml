@@ -1,1 +1,12 @@
-spring.application.name=text-to-image-demo
+spring:
+  application.name: text-to-image-demo
+  ai:
+    stabilityai:
+      api-key: ${STABILITYAI_API_KEY}
+      image:
+        options:
+          style-preset:
+logging:
+  level:
+    root: info
+    com.dardeus: trace

@@ -1,0 +1,11 @@
+POST http://localhost:8080/generate-image
+Content-Type: application/json
+
+{
+  "prompt": "create a 4x6 postcard of an astronaut riding a horse: high quality, realistic",
+  "width": 682,
+  "height": 1024,
+  "samples": 4
+}
+
+###
