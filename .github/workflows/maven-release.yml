@@ -1,0 +1,44 @@
+name: Maven Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+          cache-dependency-path: 'pom.xml'
+
+      - name: Create release tag
+        run: mvn -B versions:set -DremoveSnapshot -DprocessAllModules=true
+
+      - name: Get new version
+        id: get_version
+        run: echo "version=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+
+      - name: Push release tag
+        run: |
+          git config --global user.name "Github Actions"
+          git config --global user.email "111847+rubenqba@users.noreply.github.com"
+          git commit -a -m "Create new version v${{ steps.get_version.outputs.version }}"
+          git tag -a v${{ steps.get_version.outputs.version }} -m 'Create release version v${{ steps.get_version.outputs.version }}'
+          git push origin v${{ steps.get_version.outputs.version }}
+
+      - name: Set next development version
+        run: |
+          mvn -B versions:set -DnextSnapshot=true -DprocessAllModules=true
+          git commit -a -m "[skip ci] Create next snapshot version"
+          git push origin
