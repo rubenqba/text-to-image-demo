@@ -9,3 +9,9 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8080/generate-image
+Content-Type: application/json
+
+{"prompt":"a dog sitting on a bench with black glasses","width":512,"height":768,"samples":1}
+
+###

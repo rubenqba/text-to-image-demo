@@ -5,7 +5,7 @@ spring:
       api-key: ${STABILITYAI_API_KEY}
       image:
         options:
-          style-preset:
+          model: stable-diffusion-xl-beta-v2-2-2
 logging:
   level:
     root: info
