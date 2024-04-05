@@ -10,7 +10,7 @@
   </parent>
   <groupId>com.dardeus.demos</groupId>
   <artifactId>text-to-image-demo</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4-SNAPSHOT</version>
   <name>text-to-image-demo</name>
   <description>text-to-image-demo</description>
   <properties>
